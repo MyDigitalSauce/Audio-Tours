@@ -1,0 +1,34 @@
+page-track {
+  ion-content.trackSelected .scroll-content {
+    margin-bottom: 118px;
+  }
+  .room-map-wrapper {
+    position: relative;
+
+    .map-pin {
+      position: absolute;
+      font-size: 24px;
+
+      .pin-id {
+          position: relative;
+          left: -16.5px;
+          background: map-get($colors, primary);
+          color: #fff;
+          font-size: 14px;
+          top: -6px;
+      }
+    }
+  }
+  .room-map {
+    display: block;
+    width: 100%;
+    max-width: 272px;
+    margin: 0 auto;
+  }
+  @media (min-width: 375px) {
+    .room-map {
+      max-width: 320px;
+    }
+  }
+
+}

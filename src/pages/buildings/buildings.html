@@ -1,0 +1,40 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only
+        menuToggle >
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Audio Tour</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content no-padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col no-padding>
+        <img src="https://firebasestorage.googleapis.com/v0/b/audio-guide-b67da.appspot.com/o/Uffizi_Gallery_Florence_1.jpg?alt=media&token=658a541f-9896-4109-b919-c063f4c01723" style="width: 100%;" alt="Uffizi Gallery" />
+      </ion-col>
+    </ion-row>
+    <ion-row padding>
+      <ion-col>
+        <h3>Start the Tour, Choose a Building</h3>
+        <ion-list>
+          <ion-item-divider>Buildings</ion-item-divider>
+          <button ion-item *ngFor="let building of buildings"
+            (click)="onGoToRooms(building)">
+            <ion-icon name="ios-home" item-start></ion-icon>
+            <h3>{{ building.name }}</h3>
+          </button>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row>
+      <ion-col>
+        <a ion-button block href="http://www.uffizi.com/online-ticket-booking-uffizi-gallery.asp" target="_blank" title="Buy Tickets Uffizi Gallery">Buy Tickets</a>
+      </ion-col>
+    </ion-row> -->
+  </ion-grid>
+</ion-content>

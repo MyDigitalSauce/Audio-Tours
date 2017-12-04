@@ -1,0 +1,38 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Exhibits</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6>
+        <ion-img width="176" height="176" src="https://placebear.com/300/300" alt="Exhibit"></ion-img>
+      </ion-col>
+    </ion-row>
+      <ion-list>
+        <button ion-item *ngFor="let exhibit of exhibits" (click)="onGoToBuildings(exhibit)">
+          <ion-icon name="ios-home" item-start></ion-icon>
+          <h3>{{ exhibit.name }}</h3>
+        </button>
+      </ion-list>
+    <!-- <ion-row>
+      <ion-col>
+
+<ion-list [virtualScroll]="items">
+
+  <ion-item *virtualItem="let item">
+    <ion-avatar item-start>
+      <ion-img [src]="item.avatarUrl"></ion-img>
+    </ion-avatar>
+    {{ item.firstName }} {{ item.lastName }}
+  </ion-item>
+
+</ion-list>
+
+      </ion-col>
+    </ion-row> -->
+  </ion-grid>
+</ion-content>

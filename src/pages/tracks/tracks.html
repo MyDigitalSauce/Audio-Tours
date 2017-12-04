@@ -1,0 +1,67 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Room</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content no-padding [class.trackSelected]="audioPlayerService.selectedTrack" >
+  <ion-grid>
+
+    <ion-row style="margin-left: -8px; margin-right: -8px; margin-top: -8px;">
+      <ion-col>
+        <img src="https://firebasestorage.googleapis.com/v0/b/audio-guide-b67da.appspot.com/o/Uffizi_Gallery_Florence_2.jpg?alt=media&token=2670cdde-7b55-48c2-b0f6-e94e54c605f3" style="width: 100%;" alt="Uffizi Gallery" />
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="!networkService.connected" padding>
+      <ion-col>
+        <h3>Error</h3>
+        <p>Threre was an error processing that request. Please pull down to refresh, or check your network connection settings.</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="networkService.connected" padding>
+      <ion-col col-12>
+          <ion-list>
+          <ion-item-divider>Tracks</ion-item-divider>
+            <ion-item *ngFor="let track of room.tracks">
+              <button ion-button item-start (click)="onPlayTrack(track)" clear >
+                <ion-icon *ngIf="!track.playing" name="ios-play" color="primary" ></ion-icon>
+                <ion-spinner *ngIf="track.playing" name="bubbles" color="primary" ></ion-spinner>
+              </button>
+              <h3 (click)="onGoToTrack(track)" text-wrap>{{ track.title }}</h3>
+              <p (click)="onGoToTrack(track)" >{{ track.artist }}</p>
+              <ion-icon item-end name="ios-information-circle" (click)="onGoToTrack(track)" color="primary" ></ion-icon>
+            </ion-item>
+          </ion-list>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>
+<ng-container *ngIf="networkService.connected" >
+  <ion-footer *ngIf="audioPlayerService.selectedTrack" color="light" style="background: #f8f8f8;" no-padding>
+    <ion-grid>
+      <ion-row padding>
+        <ion-col col-4 text-center>
+          <button ion-button clear (click)="onPlayTrack(prevTrack)" ><ion-icon name="ios-skip-backward" color="primary"></ion-icon></button>
+        </ion-col>
+        <ion-col col-4 text-center>
+          <button ion-button clear *ngIf="!audioPlayerService.selectedTrack.playing" (click)="onResumeTrack()" >
+            <ion-icon name="ios-play" color="primary"></ion-icon>
+          </button>
+          <button ion-button clear *ngIf="audioPlayerService.selectedTrack.playing" (click)="onPauseTrack()" >
+            <ion-icon name="ios-pause" color="primary"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col col-4 text-center>
+          <button ion-button clear (click)="onPlayTrack(nextTrack)" ><ion-icon name="ios-skip-forward" color="primary"></ion-icon></button>
+        </ion-col>
+        <ion-col col-12>
+            <progress-bar [progress]="audioPlayerService.selectedTrack.progress"></progress-bar>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-footer>
+</ng-container>

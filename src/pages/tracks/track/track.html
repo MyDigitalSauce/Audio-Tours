@@ -1,0 +1,79 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ track.title }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content no-padding [class.trackSelected]="audioPlayerService.selectedTrack && audioPlayerService.selectedTrack === track" >
+  <ion-grid>
+
+    <ion-row *ngIf="!networkService.connected" padding>
+      <ion-col>
+        <h3>Error</h3>
+        <p>Threre was an error processing that request. Please pull down to refresh, or check your network connection settings.</p>
+      </ion-col>
+    </ion-row>
+
+    <ng-container *ngIf="networkService.connected" >
+      <ion-row>
+        <ion-col no-padding>
+          <img [src]="track.img" style="width: 100%;" [alt]="track.title" />
+        </ion-col>
+      </ion-row>
+
+      <ion-row padding>
+        <ion-col no-padding>
+          <p no-margin>{{ track.description }}</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row padding>
+
+        <ion-col col-12 class="room-map-wrapper" >
+          <img class="room-map" src="https://firebasestorage.googleapis.com/v0/b/audio-guide-b67da.appspot.com/o/Screen%20Shot%202017-12-01%20at%205.27.14%20PM.png?alt=media&token=3f8fbabe-fb4d-4bff-9037-34f8160fc101" alt="Room Map" />
+          <ng-container *ngFor="let pin of pins">
+            <ion-icon [class.located]="locatedPin === pin" class="map-pin" color="primary" [style.top]="pin.x_coord + 'px'"
+              [style.left]="pin.y_coord + 'px'" name="md-pin" >
+              <span class="pin-id">{{ pin.id + 1 }}</span>
+            </ion-icon>
+          </ng-container>
+        </ion-col>
+
+      </ion-row>
+
+      <ion-fab top right *ngIf="!audioPlayerService.selectedTrack || audioPlayerService.selectedTrack !== track" class="track-play-fab" >
+        <button ion-fab (click)="onPlayTrack(track)" >
+        <ion-icon name="ios-play"></ion-icon>
+        </button>
+      </ion-fab>
+
+    </ng-container>
+
+  </ion-grid>
+</ion-content>
+<ng-container *ngIf="networkService.connected" >
+  <ion-footer *ngIf="audioPlayerService.selectedTrack && audioPlayerService.selectedTrack === track" color="light" style="background: #f8f8f8;" padding >
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4 text-center>
+          <button ion-button clear (click)="onGoToTrack(prevTrack)" ><ion-icon name="ios-skip-backward" color="primary"></ion-icon></button>
+        </ion-col>
+        <ion-col col-4 text-center>
+          <button ion-button clear *ngIf="!audioPlayerService.selectedTrack.playing" (click)="onResumeTrack()" >
+            <ion-icon name="ios-play" color="primary"></ion-icon>
+          </button>
+          <button ion-button clear *ngIf="audioPlayerService.selectedTrack.playing" (click)="onPauseTrack()" >
+            <ion-icon name="ios-pause" color="primary"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col col-4 text-center>
+          <button ion-button clear (click)="onGoToTrack(nextTrack)" ><ion-icon name="ios-skip-forward" color="primary"></ion-icon></button>
+        </ion-col>
+        <ion-col col-12>
+            <progress-bar [progress]="audioPlayerService.selectedTrack.progress"></progress-bar>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-footer>
+</ng-container>

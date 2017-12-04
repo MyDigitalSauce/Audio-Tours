@@ -1,0 +1,28 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ building.name }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content no-padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col no-padding>
+        <img src="https://firebasestorage.googleapis.com/v0/b/audio-guide-b67da.appspot.com/o/Uffizi_Gallery_Florence_2.jpg?alt=media&token=2670cdde-7b55-48c2-b0f6-e94e54c605f3" style="width: 100%;" alt="Uffizi Gallery" />
+      </ion-col>
+    </ion-row>
+    <ion-row padding>
+      <ion-col>
+        <ion-list>
+          <ion-item-divider>Rooms</ion-item-divider>
+          <button ion-item *ngFor="let room of building.rooms"
+            (click)="onGoToTracks(room)">
+            <ion-icon name="ios-home" item-start></ion-icon>
+            <h3>{{ room.name }}</h3>
+          </button>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
