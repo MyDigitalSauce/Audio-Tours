@@ -14,6 +14,7 @@ import { TrackPage } from '../pages/tracks/track/track';
 import { AboutPage } from '../pages/about/about';
 import { SettingsPage } from '../pages/settings/settings';
 
+import { AccordionComponent } from '../components/accordion/accordion';
 import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 
 import { NetworkService } from '../services/network';
@@ -37,6 +38,7 @@ import {Network} from '@ionic-native/network';
     TrackPage,
     AboutPage,
     SettingsPage,
+    AccordionComponent,
     ProgressBarComponent,
   ],
   imports: [
